@@ -1,0 +1,91 @@
+﻿@page "/contacts"
+@inject NavigationManager NavigationManager
+
+<h3>contacts</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+           
+            <th>Id</th>
+            <th>FirstName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contact in contacts)
+        {
+            <tr>
+
+                <td>@contact.Id</td>
+                <td>
+                    <a style="cursor:pointer" class="nav-link" @onclick="(() => ShowContact(contact.Id))">
+                    @contact.FirstName
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+@code {
+    
+    private bool showDeleteConfirmation = false;
+    private int deleteId;
+    static List<Models.Contact> contacts = new List<Models.Contact>
+    {
+        new Models.Contact
+        {
+            Id = 1,
+            FirstName = "Rafat ",
+            LastName = "Saqqa.",
+            Email = "raafat.saqqa@gmail.com",
+            PhoneNumber = "0777396184",
+        },
+          new Models.Contact
+        {
+            Id = 2,
+            FirstName = "Peter",
+            LastName = "Parker.",
+            Email = "PeterParker@gmail.com",
+            PhoneNumber = "0793110242",
+        }
+        ,
+          new Models.Contact
+        {
+            Id = 3,
+            FirstName = "Joy",
+            LastName = "Ammer.",
+            Email = "JoyAmmer@gmail.com",
+            PhoneNumber = "077740295",
+        }
+    };
+
+    Models.Contact contact = new Models.Contact();
+    bool NewContact = true;
+
+    private void HandleSubmit()
+    {
+        if (NewContact)
+        {
+            contacts.Add(contact);
+            // contacts.OrderBy
+        }
+    }
+
+    private void CreateContact()
+    {
+        Console.WriteLine("Hello");
+        contact = new Models.Contact();
+
+        NewContact = true;
+    }
+
+    void ShowContact(int id)
+    {
+        Console.WriteLine(id);
+        NavigationManager.NavigateTo($"fullinformation/{id}");
+    }
+
+}
